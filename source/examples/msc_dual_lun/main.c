@@ -35,10 +35,6 @@
 // MACRO CONSTANT TYPEDEF PROTYPES
 //--------------------------------------------------------------------+
 
-void usb_interrupt_handler(void) {
-  tud_int_handler(0);
-}
-
 /*------------- MAIN -------------*/
 int main(void) {
   consoleDemoInit();
@@ -49,9 +45,6 @@ int main(void) {
     .speed = TUSB_SPEED_AUTO
   };
   tusb_init(BOARD_TUD_RHPORT, &dev_init);
-
-  // Increase the frequency for faster throughput
-  timerStart(2, ClockDivider_256, TIMER_FREQ_256(1000), usb_interrupt_handler);
 
   while (1) {
     tud_task(); // tinyusb device task
