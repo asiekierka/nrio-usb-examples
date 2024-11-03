@@ -42,7 +42,7 @@
 //--------------------------------------------------------------------+
 // Device Descriptors
 //--------------------------------------------------------------------+
-tusb_desc_device_t const desc_device =
+tusb_desc_device_t desc_device =
 {
     .bLength            = sizeof(tusb_desc_device_t),
     .bDescriptorType    = TUSB_DESC_DEVICE,
@@ -70,6 +70,7 @@ tusb_desc_device_t const desc_device =
 // Application return pointer to descriptor
 uint8_t const * tud_descriptor_device_cb(void)
 {
+  desc_device.bMaxPacketSize0 = tud_edpt0_get_size();
   return (uint8_t const *) &desc_device;
 }
 
