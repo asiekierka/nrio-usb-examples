@@ -55,7 +55,8 @@ nrio_usb_type_t nrio_usb_detect(void) {
 
     // Check if the chip is an PDIUSBD12 (do other compatible chips exist?)
     uint16_t d12_chip_id = nrio_d12_read_chip_id();
-    if (d12_chip_id != 0x0000 && d12_chip_id != 0xFFFF) {
+    uint8_t d12_open_bus = NRIO_D12_DATA;
+    if (!((d12_chip_id >> 8) == d12_open_bus && (d12_chip_id & 0xFF) == d12_open_bus)) {
         result.board_type = NRIO_USB_BOARD_TYPE_D12;
         result.chip_id = d12_chip_id;
         return result;
